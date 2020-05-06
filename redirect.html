@@ -1,16 +1,108 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Redirecting...</title>
+    <title>Anonymous redirect</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- http://caniuse.com/#feat=referrer-policy -->
     <meta name="referrer" content="no-referrer" />
     <!-- For Edge and Safari -->
-    <meta name="referrer" content="never" />    
+    <meta name="referrer" content="never" />
 
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.428571429;
+            color: #4d4d4d;
+        }
+
+        main {
+            padding: 70px 15px;
+            text-align: center;
+        }
+
+        .title {
+            margin: 0 0 30px;
+            line-height: 1.2;
+        }
+
+        .text {
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+
+        code {
+            display: block;
+            word-break: break-word;
+        }
+
+        .button {
+            display: inline-block;
+            vertical-align: middle;
+            min-width: 200px;
+            margin-bottom: 30px;
+            background-image: none;
+            padding: 13px 15px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 400;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            white-space: nowrap;
+            color: #fff;
+            background-color: #67b279;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:focus {
+            box-shadow: 0 0 8px #67b279;
+            outline: 0;
+        }
+
+        footer {
+            max-width: 400px;
+            margin: 0 auto;
+            font-size: 13px;
+        }
+
+        .link {
+            color: #67b279;
+        }
+
+        .link:hover,
+        .link:focus {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-    <p>Performing an anonymous redirect...</p>
+    <main>
+        <h1 class="title">
+            Anonymous redirect
+        </h1>
+
+        <p class="text">
+            You are about to go to the following page:
+            <code id="currentUrl">https://example.org/</code>
+        </p>
+
+        <button type="button" class="button" id="redirectButton">
+            Take me there
+        </button>
+
+        <footer>
+            The point of this page is to hide the source page from the target website to prevent all kinds of tracking.
+            <a href="https://github.com/AdguardTeam/AnonymousRedirect" class="link" target="_blank">Source code</a>.
+        </footer>
+    </main>
 
     <script type="text/javascript">
         function getParameterByName(name, url) {
@@ -26,8 +118,22 @@
         }
 
         var url = getParameterByName("url");
-        // Rick-rolling in case of wrong URL
-        window.location.href = url || "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        var currentUrl = document.getElementById('currentUrl');
+
+        if (currentUrl) {
+            currentUrl.innerText = url;
+        }
+
+        function performRedirect() {
+            // Rick-rolling in case of wrong URL
+            window.location.href = url || "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }
+
+        var redirectButton = document.getElementById('redirectButton');
+
+        if (redirectButton) {
+            redirectButton.addEventListener('click', performRedirect);
+        }
     </script>
 
     <body>
