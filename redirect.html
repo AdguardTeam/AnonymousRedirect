@@ -20,7 +20,7 @@
             color: #4d4d4d;
         }
 
-        main {
+        .main {
             padding: 70px 15px;
             text-align: center;
         }
@@ -84,7 +84,7 @@
 </head>
 
 <body>
-    <main>
+    <div class="main">
         <h1 class="title">
             Anonymous redirect
         </h1>
@@ -102,7 +102,7 @@
             The point of this page is to hide the source page from the target website to prevent all kinds of tracking.
             <a href="https://github.com/AdguardTeam/AnonymousRedirect" class="link" target="_blank">Source code</a>.
         </footer>
-    </main>
+    </div>
 
     <script type="text/javascript">
         function getParameterByName(name, url) {
@@ -117,7 +117,28 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
-        var url = getParameterByName("url");
+        function getHostname(url) {
+            var hostname = '';
+
+            if (url.indexOf('//') > -1) {
+                hostname = url.split('/')[2];
+            } else {
+                hostname = url.split('/')[0];
+            }
+
+            hostname = hostname.split(':')[0];
+            hostname = hostname.split('?')[0];
+
+            return hostname;
+        }
+
+        var url = getParameterByName('url');
+        var host = getHostname(url);
+
+        if (host === 'adguard.com' || host.endsWith('.adguard.com')) {
+            performRedirect();
+        }
+
         var currentUrl = document.getElementById('currentUrl');
 
         if (currentUrl) {
@@ -126,7 +147,7 @@
 
         function performRedirect() {
             // Rick-rolling in case of wrong URL
-            window.location.href = url || "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            window.location.href = url || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
         }
 
         var redirectButton = document.getElementById('redirectButton');
