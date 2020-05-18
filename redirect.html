@@ -118,11 +118,11 @@
         }
 
         function getHostname(url) {
-            var hostname = '';
-
             if (!url) {
                 return '';
             }
+
+            var hostname = '';
 
             if (url.indexOf('//') > -1) {
                 hostname = url.split('/')[2];
