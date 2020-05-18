@@ -133,7 +133,7 @@
         }
 
         var url = getParameterByName('url');
-        var host = getHostname(url);
+        var host = getHostname(document.referrer);
 
         if (host === 'adguard.com' || host.endsWith('.adguard.com')) {
             performRedirect();
