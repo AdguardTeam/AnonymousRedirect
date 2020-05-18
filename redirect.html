@@ -120,6 +120,10 @@
         function getHostname(url) {
             var hostname = '';
 
+            if (!url) {
+                return '';
+            }
+
             if (url.indexOf('//') > -1) {
                 hostname = url.split('/')[2];
             } else {
