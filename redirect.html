@@ -31,7 +31,8 @@
         }
 
         .text {
-            margin: 0 0 20px;
+            max-width: 800px;
+            margin: 0 auto 20px;
             line-height: 1.6;
         }
 
@@ -61,8 +62,9 @@
             cursor: pointer;
         }
 
+        .button:hover,
         .button:focus {
-            box-shadow: 0 0 8px #67b279;
+            background-color: #58a273;
             outline: 0;
         }
 
@@ -80,6 +82,10 @@
         .link:focus {
             text-decoration: none;
         }
+
+        .wrap {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -94,9 +100,11 @@
             <code id="currentUrl">https://example.org/</code>
         </p>
 
-        <button type="button" class="button" id="redirectButton">
-            Take me there
-        </button>
+        <div class="wrap">
+            <button type="button" class="button" id="redirectButton">
+                Take me there
+            </button>
+        </div>
 
         <footer>
             The point of this page is to hide the source page from the target website to prevent all kinds of tracking.
@@ -105,6 +113,20 @@
     </div>
 
     <script type="text/javascript">
+        if (!String.prototype.endsWith) {
+            Object.defineProperty(String.prototype, 'endsWith', {
+                value: function (searchString, position) {
+                    var subjectString = this.toString();
+                    if (position === undefined || position > subjectString.length) {
+                        position = subjectString.length;
+                    }
+                    position -= searchString.length;
+                    var lastIndex = subjectString.indexOf(searchString, position);
+                    return lastIndex !== -1 && lastIndex === position;
+                },
+            });
+        }
+
         function getParameterByName(name, url) {
             if (!url) {
                 url = window.location.href;
